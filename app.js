@@ -25,11 +25,13 @@ app.get('/', cookieTimeCheckMiddleware, (req, res) => {
 });
 
 app.get('/myroute/:param', (req, res) => {
+
     const param = req.params.param,
         queryParam = req.query.param ? req.query.param : '',
+        headerParam = req.get(param) ? req.get(param) : '',
         sessionParam = req.session.param ? req.session.param : '',
         cookieParam =  req.cookies.param ? req.cookies.param : '';
-    res.render('param.pug', { param, queryParam, sessionParam, cookieParam});
+    res.render('param.pug', { param, queryParam, sessionParam, cookieParam, headerParam});
 });
 
 app.listen(3000, () => {
